@@ -3,7 +3,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## 💻 GETTING STARTED
 
 ``` bash
-git clone https://github.com/VuHoaBinh/Health-Care-Fontend.git
+git clone https://github.com/VuHoaBinh/Healthy-Care-Fontend.git
+
 ```
 Use the npm init command to create a package.json file for your application:
 ``` bash
