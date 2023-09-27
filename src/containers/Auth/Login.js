@@ -14,8 +14,8 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      isShowPassword: false,
       errMessage: "",
+      isShowPassword: false,
     };
   }
   handleOnChangeUsername = (event) => {
@@ -43,7 +43,6 @@ class Login extends Component {
         });
       }
       if (data && data.errCode === 0) {
-        // actions.userLoginSuccess(data.user);
         this.props.userLoginSuccess(data.user);
 
         console.log("Successful");

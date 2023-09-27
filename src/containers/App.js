@@ -21,6 +21,7 @@ import { CustomToastCloseButton } from "../components/CustomToast";
 import ConfirmModal from "../components/ConfirmModal";
 
 class App extends Component {
+  // redux
   handlePersistorState = () => {
     const { persistor } = this.props;
     let { bootstrapped } = persistor.getState();

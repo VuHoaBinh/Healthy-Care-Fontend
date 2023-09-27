@@ -7,26 +7,13 @@ class UserManage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrUsers: [
-        {
-          email: "hoabinh.vippro63@gmail.com",
-          password:
-            "$2a$10$RpHyUJBqR2.Ru85.YYcDfe7lErhS6LBe3XVMLaSolmfSJ.oG61YGu",
-          firstName: "binh",
-          lastName: "vu hoa",
-          address: "33 binh dep trai",
-          phone: "123-123-1234",
-          gender: "1",
-          roleID: "R1",
-          position: "Admin",
-        },
-      ],
+      arrUsers: [],
     };
   }
   // get data in backend
   async componentDidMount() {
-    let response = await this.getAllUsers("ALL");
-    console.log("check response", response);
+    let response = await getAllUsers("ALL");
+    console.log("check response: ", response);
     if (response && response.errCode === 0) {
       this.setState(
         {

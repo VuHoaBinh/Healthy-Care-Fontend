@@ -1,107 +1,114 @@
-import React, { Component } from 'react';
-import { Scrollbars } from 'react-custom-scrollbars';
+import React, { Component } from "react";
+import { Scrollbars } from "react-custom-scrollbars";
 
-import './CustomScrollbars.scss';
+import "./CustomScrollbars.scss";
 
 class CustomScrollbars extends Component {
+  ref = React.createRef();
 
-    ref = React.createRef();
+  getScrollLeft = () => {
+    const scrollbars = this.ref.current;
+    return scrollbars.getScrollLeft();
+  };
+  getScrollTop = () => {
+    const scrollbars = this.ref.current;
+    return scrollbars.getScrollTop();
+  };
 
-    getScrollLeft =()=>{
-        const scrollbars = this.ref.current;
-        return scrollbars.getScrollLeft();
+  scrollToBottom = () => {
+    if (!this.ref || !this.ref.current) {
+      return;
     }
-    getScrollTop =()=>{
-        const scrollbars = this.ref.current;
-        return scrollbars.getScrollTop();
+    const scrollbars = this.ref.current;
+    const targetScrollTop = scrollbars.getScrollHeight();
+    this.scrollTo(targetScrollTop);
+  };
+
+  scrollTo = (targetTop) => {
+    const { quickScroll } = this.props;
+    if (!this.ref || !this.ref.current) {
+      return;
     }
+    const scrollbars = this.ref.current;
+    const originalTop = scrollbars.getScrollTop();
+    let iteration = 0;
 
-    scrollToBottom = () => {
-        if (!this.ref || !this.ref.current) {
-            return;
-        }
-        const scrollbars = this.ref.current;
-        const targetScrollTop = scrollbars.getScrollHeight();
-        this.scrollTo(targetScrollTop);
-    };
+    const scroll = () => {
+      iteration++;
+      if (iteration > 30) {
+        return;
+      }
+      scrollbars.scrollTop(
+        originalTop + ((targetTop - originalTop) / 30) * iteration
+      );
 
-    scrollTo = (targetTop) => {
-        const { quickScroll } = this.props;
-        if (!this.ref || !this.ref.current) {
-            return;
-        }
-        const scrollbars = this.ref.current;
-        const originalTop = scrollbars.getScrollTop();
-        let iteration = 0;
-
-        const scroll = () => {
-            iteration++;
-            if (iteration > 30) {
-                return;
-            }
-            scrollbars.scrollTop(originalTop + (targetTop - originalTop) / 30 * iteration);
-
-            if (quickScroll && quickScroll === true) {
-                scroll();
-            } else {
-                setTimeout(() => {
-                    scroll();
-                }, 20);
-            }
-        };
-
+      if (quickScroll && quickScroll === true) {
         scroll();
+      } else {
+        setTimeout(() => {
+          scroll();
+        }, 20);
+      }
     };
 
-    renderTrackHorizontal = (props) => {
-        return (
-            <div {...props} className="track-horizontal" />
-        );
-    };
+    scroll();
+  };
 
-    renderTrackVertical = (props) => {
-        return (
-            <div {...props} className="track-vertical" />
-        );
-    };
+  renderTrackHorizontal = (props) => {
+    return <div {...props} className="track-horizontal" />;
+  };
 
-    renderThumbHorizontal = (props) => {
-        return (
-            <div {...props} className="thumb-horizontal" />
-        );
-    };
+  renderTrackVertical = (props) => {
+    return <div {...props} className="track-vertical" />;
+  };
 
-    renderThumbVertical = (props) => {
-        return (
-            <div {...props} className="thumb-vertical" />
-        );
-    };
+  renderThumbHorizontal = (props) => {
+    return <div {...props} className="thumb-horizontal" />;
+  };
 
-    renderNone = (props) => {
-        return (
-            <div />
-        );
-    };
+  renderThumbVertical = (props) => {
+    return <div {...props} className="thumb-vertical" />;
+  };
 
-    render() {
-        const { className, disableVerticalScroll, disableHorizontalScroll, children,...otherProps } = this.props;
-        return (
-            <Scrollbars
-                ref={this.ref}
-                autoHide={true}
-                autoHideTimeout={200}
-                hideTracksWhenNotNeeded={true}
-                className={className ? className + ' custom-scrollbar' : 'custom-scrollbar'}
-                {...otherProps}
-                renderTrackHorizontal={disableHorizontalScroll ? this.renderNone : this.renderTrackHorizontal}
-                renderTrackVertical={disableVerticalScroll ? this.renderNone : this.renderTrackVertical}
-                renderThumbHorizontal={disableHorizontalScroll ? this.renderNone : this.renderThumbHorizontal}
-                renderThumbVertical={disableVerticalScroll ? this.renderNone : this.renderThumbVertical}
-            >
-                {children}
-            </Scrollbars>
-        );
-    }
+  renderNone = (props) => {
+    return <div />;
+  };
+
+  render() {
+    const {
+      className,
+      disableVerticalScroll,
+      disableHorizontalScroll,
+      children,
+      ...otherProps
+    } = this.props;
+    return (
+      <Scrollbars
+        ref={this.ref}
+        autoHide={true}
+        autoHideTimeout={200}
+        hideTracksWhenNotNeeded={true}
+        className={
+          className ? className + " custom-scrollbar" : "custom-scrollbar"
+        }
+        {...otherProps}
+        renderTrackHorizontal={
+          disableHorizontalScroll ? this.renderNone : this.renderTrackHorizontal
+        }
+        renderTrackVertical={
+          disableVerticalScroll ? this.renderNone : this.renderTrackVertical
+        }
+        renderThumbHorizontal={
+          disableHorizontalScroll ? this.renderNone : this.renderThumbHorizontal
+        }
+        renderThumbVertical={
+          disableVerticalScroll ? this.renderNone : this.renderThumbVertical
+        }
+      >
+        {children}
+      </Scrollbars>
+    );
+  }
 }
 
 export default CustomScrollbars;
