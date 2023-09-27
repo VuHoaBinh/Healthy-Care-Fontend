@@ -1,0 +1,38 @@
+.table{
+    border-collapse: collapse;
+    .header{
+        background-color:antiquewhite;
+        color: black;
+    }
+    .bodyTable{
+        cursor: pointer;
+        tr{
+            &:hover {
+                background-color: rgb(16, 198, 222);
+                color: red;
+            }
+            .btn-edit{
+                width:50px;
+                border: none;
+                outline: none;
+                background: transparent;
+                color: black;
+                &:hover{
+                    background-color: transparent !important;
+                    color: red;
+                }
+            }
+            .btn-delete{
+                width:50px;
+                border: none;
+                outline: none;
+                background: transparent;
+                color: black;
+                &:hover{
+                    background-color: transparent !important;
+                    color: red;
+                }
+            }
+        }
+    }
+}
