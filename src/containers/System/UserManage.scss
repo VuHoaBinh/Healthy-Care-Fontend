@@ -6,7 +6,7 @@
     }
     .bodyTable{
         cursor: pointer;
-        tr{
+        .trTable{
             &:hover {
                 background-color: rgb(16, 198, 222);
                 color: red;

@@ -2,17 +2,20 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { getAllUsers } from "../../services/userServices";
+import { getAllUser } from "../../services/userServices";
+import ModalUser from "./ModalUser";
+
 class UserManage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrUsers: [],
+      isOpenModal: false,
     };
   }
   // get data in backend
   async componentDidMount() {
-    let response = await getAllUsers("ALL");
+    let response = await getAllUser("ALL");
     console.log("check response: ", response);
     if (response && response.errCode === 0) {
       this.setState(
@@ -26,13 +29,40 @@ class UserManage extends Component {
       );
     }
   }
+  handleOnClickNewUsers = () => {
+    this.setState({
+      isOpenModal: true,
+    });
+  };
+
+  toggleUserModal = () => {
+    this.setState({
+      isOpenModal: !this.state.isOpenModal,
+    });
+  };
+  // //life cycle
+  // 1: run contructors
+  // 2: componentDidMount
+  // 3:render
 
   render() {
     console.log("check render: ", this.state);
     let arrayUsers = this.state.arrUsers;
     return (
       <div className="text-center">
+        <ModalUser
+          isOpen={this.state.isOpenModal}
+          toggleUserModal={this.toggleUserModal}
+        />
         <h1 className="title text-center">Manage information users</h1>
+        <div className="mx-1 text-left m-3">
+          <button
+            className="btn btn-primary px-3"
+            onClick={() => this.handleOnClickNewUsers()}
+          >
+            <i class="fas fa-plus-square"></i> Add new users
+          </button>
+        </div>
         <table className="table">
           <thead className="thead-dark header">
             <tr>
@@ -52,7 +82,7 @@ class UserManage extends Component {
           <tbody className="bodyTable">
             {arrayUsers &&
               arrayUsers.map((item, index) => {
-                console.log("Check log: ", item, index);
+                // console.log("Check log: ", item, index);
                 return (
                   <tr key={index} className="trTable">
                     <td>{item.email}</td>
@@ -65,17 +95,16 @@ class UserManage extends Component {
                     <td>{item.image}</td>
                     <td>{item.roleID}</td>
                     <td>{item.position}</td>
-                    <td>{item.image}</td>
                     <td>
-                      <button className="btn-edit">EDIT</button>
-                      <button className="btn-delete">DELETE</button>
+                      {/* <button className="btn-edit">EDIT</button>
+                      <button className="btn-delete">DELETE</button> */}
 
-                      {/* <button className="btn-edit">
-                        <i className="fas fa-trash"></i>
+                      <button className="btn-edit">
+                        <i class="fas fa-edit"></i>
                       </button>
                       <button className="btn-delete">
-                        <i class="fas fa-trash"></i>
-                      </button> */}
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
                     </td>
                   </tr>
                 );
