@@ -10,7 +10,7 @@ class UserManage extends Component {
     super(props);
     this.state = {
       arrUsers: [],
-      isOpenModal: false,
+      isOpen: false,
     };
   }
   // get data in backend
@@ -31,13 +31,13 @@ class UserManage extends Component {
   }
   handleOnClickNewUsers = () => {
     this.setState({
-      isOpenModal: true,
+      isOpen: true,
     });
   };
 
   toggleUserModal = () => {
     this.setState({
-      isOpenModal: !this.state.isOpenModal,
+      isOpen: !this.state.isOpen,
     });
   };
   // //life cycle
@@ -51,7 +51,7 @@ class UserManage extends Component {
     return (
       <div className="text-center">
         <ModalUser
-          isOpen={this.state.isOpenModal}
+          isOpen={this.state.isOpen}
           toggleUserModal={this.toggleUserModal}
         />
         <h1 className="title text-center">Manage information users</h1>
@@ -62,6 +62,7 @@ class UserManage extends Component {
           >
             <i class="fas fa-plus-square"></i> Add new users
           </button>
+          {/* <ModalUser /> */}
         </div>
         <table className="table">
           <thead className="thead-dark header">
