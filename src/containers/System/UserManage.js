@@ -3,6 +3,7 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
 import { getAllUser } from "../../services/userServices";
+import { getCreateUserService } from "../../services/userServices";
 import ModalUser from "./ModalUser";
 
 class UserManage extends Component {
@@ -15,20 +16,19 @@ class UserManage extends Component {
   }
   // get data in backend
   async componentDidMount() {
-    let response = await getAllUser("ALL");
-    console.log("check response: ", response);
-    if (response && response.errCode === 0) {
-      this.setState(
-        {
-          arrUsers: response.users,
-        },
-        () => {
-          //call back
-          console.log("Check state from users", this.state.arrUsers);
-        }
-      );
-    }
+    await this.getAllUser();
   }
+
+  getAllUser = async () => {
+    let response = await getAllUser("ALL");
+    // console.log("check response: ", response);
+    if (response && response.errCode === 0) {
+      this.setState({
+        arrUsers: response.users,
+      });
+    }
+  };
+
   handleOnClickNewUsers = () => {
     this.setState({
       isOpen: true,
@@ -40,6 +40,23 @@ class UserManage extends Component {
       isOpen: !this.state.isOpen,
     });
   };
+
+  getCreateUserModal = async (data) => {
+    try {
+      let response = await getCreateUserService(data);
+      if (response && response.errCode !== 0) {
+        alert(response.message);
+      } else {
+        await this.getAllUser();
+        this.setState({
+          isOpen: false,
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   // //life cycle
   // 1: run contructors
   // 2: componentDidMount
@@ -53,6 +70,7 @@ class UserManage extends Component {
         <ModalUser
           isOpen={this.state.isOpen}
           toggleUserModal={this.toggleUserModal}
+          getCreateUserModal={this.getCreateUserModal}
         />
         <h1 className="title text-center">Manage information users</h1>
         <div className="mx-1 text-left m-3">
@@ -60,7 +78,7 @@ class UserManage extends Component {
             className="btn btn-primary px-3"
             onClick={() => this.handleOnClickNewUsers()}
           >
-            <i class="fas fa-plus-square"></i> Add new users
+            <i className="fas fa-plus-square"></i> Add new users
           </button>
           {/* <ModalUser /> */}
         </div>
@@ -97,14 +115,11 @@ class UserManage extends Component {
                     <td>{item.roleID}</td>
                     <td>{item.position}</td>
                     <td>
-                      {/* <button className="btn-edit">EDIT</button>
-                      <button className="btn-delete">DELETE</button> */}
-
                       <button className="btn-edit">
-                        <i class="fas fa-edit"></i>
+                        <i className="fas fa-edit"></i>
                       </button>
                       <button className="btn-delete">
-                        <i class="fas fa-trash-alt"></i>
+                        <i className="fas fa-trash-alt"></i>
                       </button>
                     </td>
                   </tr>
