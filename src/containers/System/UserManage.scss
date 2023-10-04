@@ -37,7 +37,14 @@
     }
 }
 .model-user-container{
-
+    .modal-user-header{
+        button{
+            box-sizing: border-box;
+            background-color: transparent;
+            border: none;
+            color: white;
+        }
+    }
     .modal-user-body{
         display: flex;
         gap:10px;
@@ -49,12 +56,16 @@
             &.max-width-input{
                 width: 100%;
             }
-            input{
-                border-radius: 3px;
+            input,Input{
+                border-radius: 16px;
                 height: 30px;
-                outline:none;
-                border:1px solid green;
-                padding:0 5px;
+                outline: none;
+                border: 1px solid green;
+                padding: 0 14px;
+            }
+            .radioButtonSex Label{
+                margin-right: 42px;
+                
             }
         }  
     }

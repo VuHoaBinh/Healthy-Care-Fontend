@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import { FormGroup, Label, Input } from "reactstrap";
 import "./UserManage.scss";
-import { emitter } from "../../utils/emitter";
+import _ from "lodash";
 
-class ModalUser extends Component {
+class ModalEditUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       email: "",
       password: "",
       firstName: "",
@@ -17,47 +18,46 @@ class ModalUser extends Component {
       address: "",
       phone: "",
       gender: "",
-      image: "",
       roleID: "",
       position: "",
     };
-    this.listenerEmitter();
   }
-  // const [gender, setGender] = useState('male');
 
-  // const handleGenderChange = (e) => {
-  //   setGender(e.target.value);
-  // };
-  listenerEmitter() {
-    emitter.on("EVENT_CLEAR_USER_MODAL", () => {
-      this.setState({
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-        phone: "",
-      });
+  handleGenderChange = (event) => {
+    let confirmGender = event.target.value === "male" ? true : false;
+    this.setState({
+      gender: confirmGender,
     });
+  };
+
+  componentDidMount() {
+    let user = this.props.getUserModal; // === let {getUserModal} = this.props;
+    if (user && !_.isElement(user)) {
+      this.setState({
+        id: user.id,
+        email: user.email,
+        password: "binhdeptrai",
+        firstName: user.firstName,
+        lastName: user.lastName,
+        address: user.address,
+        phone: user.phone,
+        gender: user.gender,
+        roleID: user.roleID,
+        position: user.position,
+      });
+    }
+    console.log(this.props.getUserModal);
   }
-  componentDidMount() {}
   toggle = () => {
     this.props.toggleUserModal();
   };
 
   handleOnChangeALLinput = (event, id) => {
-    // this.state[id] = event.target.value;
-    // this.setState({
-    //   ...this.state,
-    // });
-    // console.log(this.state);
-
     let copyState = { ...this.state };
     copyState[id] = event.target.value;
     this.setState({
       ...copyState,
     });
-    // console.log(event.target.value, id);
   };
 
   isCheckValid = () => {
@@ -70,59 +70,30 @@ class ModalUser extends Component {
       "address",
       "phone",
     ];
-    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // const namePattern = /^[A-Za-z]+([-']?[A-Za-z]+)*$/;
-    // const addressPattern = /^[A-Za-z0-9\s.,#-]+$/;
-    // const phonePattern = /^\d{11}$/;
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;
         alert("Please enter a valid" + arrInput[i]);
         break;
       }
-      // if (arrInput[i] === "email" && !emailPattern.test(this.state.email)) {
-      //   isValid = false;
-      //   alert("Please enter your Email");
-      //   break;
-      // }
-      // if (
-      //   (arrInput[i] === "firstName" || arrInput[i] === "lastName") &&
-      //   (!namePattern.test(this.state.firstName) ||
-      //     !namePattern.test(this.state.lastName))
-      // ) {
-      //   isValid = false;
-      //   alert("Please enter your Name");
-      //   break;
-      // }
-      // if (
-      //   arrInput[i] === "address" &&
-      //   !addressPattern.test(this.state.address)
-      // ) {
-      //   isValid = false;
-      //   alert("Please enter your Address");
-      //   break;
-      // }
-      // if (arrInput[i] === "phone" && !phonePattern.test(this.state.phone)) {
-      //   isValid = false;
-      //   alert("Please enter your Address");
-      //   break;
-      // }
     }
     return isValid;
   };
-  handleOnClickAddNew = () => {
+
+  handleOnClickSaveInfo = () => {
     let isValid = this.isCheckValid();
+
     if (isValid) {
       console.log("state: ", this.state);
       // call API
-      this.props.getCreateUserModal(this.state);
+      this.props.editUserModal(this.state);
     }
   };
 
   render() {
     return (
       <Modal
-        isOpen={this.props.isOpen}
+        isOpen={this.props.isOpenEditUser}
         toggle={() => this.toggle()}
         className={"model-user-container"}
         size="lg"
@@ -134,7 +105,7 @@ class ModalUser extends Component {
             this.toggle();
           }}
         >
-          Create new user
+          Edit user information
         </ModalHeader>
         <ModalBody>
           <div className="modal-user-body">
@@ -148,6 +119,7 @@ class ModalUser extends Component {
                 }}
                 value={this.state.email}
                 placeholder="hoabinh.vippro63@gmail.com"
+                disabled
               />
             </div>
             <div className="input-container">
@@ -159,6 +131,7 @@ class ModalUser extends Component {
                   this.handleOnChangeALLinput(event, "password");
                 }}
                 value={this.state.password}
+                disabled
               />
             </div>
             <div className="input-container">
@@ -214,12 +187,25 @@ class ModalUser extends Component {
               <label htmlFor="gender">Sex:</label>
               <FormGroup check className="radioButtonSex">
                 <Label check>
-                  <Input type="radio" name="gender" value="male" />
+                  <Input
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    onChange={this.handleGenderChange}
+                  />
                   {"   "}
                   Male
                 </Label>
                 <Label check>
-                  <Input type="radio" name="gender" value="female" /> Female
+                  <Input
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    onChange={(event) => {
+                      this.handleGenderChange(event);
+                    }}
+                  />{" "}
+                  Female
                 </Label>
               </FormGroup>
             </div>
@@ -262,7 +248,7 @@ class ModalUser extends Component {
             color="primary"
             className="px-3"
             onClick={() => {
-              this.handleOnClickAddNew();
+              this.handleOnClickSaveInfo();
             }}
           >
             Save
@@ -290,4 +276,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditUser);

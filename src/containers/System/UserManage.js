@@ -1,264 +1,201 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
-import { FormGroup, Label, Input } from "reactstrap";
 import "./UserManage.scss";
+import { getAllUser } from "../../services/userServices";
+import { getCreateUserService } from "../../services/userServices";
+import { deleteUserService } from "../../services/userServices";
+import ModalUser from "./ModalUser";
+import {
+  isConstructorDeclaration,
+  isTemplateLiteralTypeNode,
+} from "typescript";
+import { emitter } from "../../utils/emitter";
+import ModalEditUser from "./ModalEditUser";
+import { editUserService } from "../../services/userServices";
 
-class ModalUser extends Component {
+class UserManage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-      address: "",
-      phone: "",
+      arrUsers: [],
+      isOpen: false,
+      isOpenEditUser: false,
+      userEdit: {}, // get info
     };
   }
-  // const [gender, setGender] = useState('male');
+  // get data in backend
+  async componentDidMount() {
+    await this.getAllUser();
+  }
 
-  // const handleGenderChange = (e) => {
-  //   setGender(e.target.value);
-  // };
-  componentDidMount() {}
-  toggle = () => {
-    this.props.toggleUserModal();
+  getAllUser = async () => {
+    let response = await getAllUser("ALL");
+    if (response && response.errCode === 0) {
+      this.setState({
+        arrUsers: response.users,
+      });
+    }
   };
 
-  handleOnChangeALLinput = (event, id) => {
-    // this.state[id] = event.target.value;
-    // this.setState({
-    //   ...this.state,
-    // });
-    // console.log(this.state);
-
-    let copyState = { ...this.state };
-    copyState[id] = event.target.value;
+  handleOnClickNewUsers = () => {
     this.setState({
-      ...copyState,
+      isOpen: true,
     });
-    // console.log(event.target.value, id);
   };
 
-  isCheckValid = () => {
-    let isValid = true;
-    let arrInput = [
-      "email",
-      "password",
-      "firstName",
-      "lastName",
-      "address",
-      "phone",
-    ];
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const namePattern = /^[A-Za-z]+([-']?[A-Za-z]+)*$/;
-    const addressPattern = /^[A-Za-z0-9\s.,#-]+$/;
-    const phonePattern = /^\d{11}$/;
-    for (let i = 0; i < arrInput.length; i++) {
-      if (!this.state[arrInput[i]]) {
-        isValid = false;
-        alert("Please enter a valid" + arrInput[i]);
-        break;
+  toggleUserModal = () => {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  };
+
+  getCreateUserModal = async (data) => {
+    try {
+      let response = await getCreateUserService(data);
+      if (response && response.errCode !== 0) {
+        alert(response.message);
+      } else {
+        await this.getAllUser();
+        this.setState({
+          isOpen: false,
+        });
+        emitter.emit("EVENT_CLEAR_USER_MODAL");
       }
-      // if (arrInput[i] === "email" && !emailPattern.test(this.state.email)) {
-      //   isValid = false;
-      //   alert("Please enter your Email");
-      //   break;
-      // }
-      // if (
-      //   (arrInput[i] === "firstName" || arrInput[i] === "lastName") &&
-      //   (!namePattern.test(this.state.firstName) ||
-      //     !namePattern.test(this.state.lastName))
-      // ) {
-      //   isValid = false;
-      //   alert("Please enter your Name");
-      //   break;
-      // }
-      // if (
-      //   arrInput[i] === "address" &&
-      //   !addressPattern.test(this.state.address)
-      // ) {
-      //   isValid = false;
-      //   alert("Please enter your Address");
-      //   break;
-      // }
-      // if (arrInput[i] === "phone" && !phonePattern.test(this.state.phone)) {
-      //   isValid = false;
-      //   alert("Please enter your Address");
-      //   break;
-      // }
-    }
-    return isValid;
-  };
-  handleOnClickAddNew = () => {
-    let isValid = this.isCheckValid();
-    if (isValid) {
-      console.log("state: ", this.state);
-      // call API
-      this.props.getCreateUserModal(this.state);
+    } catch (e) {
+      console.log(e);
     }
   };
+
+  handleOnClickDelete = async (userID) => {
+    console.log(userID);
+    try {
+      let response = await deleteUserService(userID.id);
+      if (response && response.errCode !== 0) {
+        alert(response.message);
+      } else {
+        await this.getAllUser();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  handleOnClickEditUser = (userID) => {
+    this.setState({
+      isOpenEditUser: true,
+      userEdit: userID,
+    });
+  };
+
+  toggleEditUserModal = () => {
+    this.setState({
+      isOpenEditUser: !this.state.isOpenEditUser,
+    });
+  };
+
+  handleOnClickEditUserInfo = async (userID) => {
+    console.log("click save :", userID);
+    try {
+      let response = await editUserService(userID);
+      console.log("response:", response);
+      if (response && response.errCode !== 0) {
+        alert(response.message);
+      } else {
+        this.setState({
+          isOpenEditUser: false,
+        });
+        await this.getAllUser();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  // //life cycle
+  // 1: run contructors
+  // 2: componentDidMount
+  // 3:render
 
   render() {
+    let arrayUsers = this.state.arrUsers;
     return (
-      <Modal
-        isOpen={this.props.isOpen}
-        toggle={() => this.toggle()}
-        className={"model-user-container"}
-        size="lg"
-        centered
-      >
-        <ModalHeader
-          className="modal-user-header"
-          toggle={() => {
-            this.toggle();
-          }}
-        >
-          Create new user
-        </ModalHeader>
-        <ModalBody>
-          <div className="modal-user-body">
-            <div className="input-container">
-              <label htmlFor="Email">Email:</label>
-              <input
-                type="text"
-                className="form-control"
-                onChange={(event) => {
-                  this.handleOnChangeALLinput(event, "email");
-                }}
-                value={this.state.email}
-                placeholder="hoabinh.vippro63@gmail.com"
-              />
-            </div>
-            <div className="input-container">
-              <label htmlFor="Password">Password:</label>
-              <input
-                type="password"
-                className="form-control"
-                onChange={(event) => {
-                  this.handleOnChangeALLinput(event, "password");
-                }}
-                value={this.state.password}
-              />
-            </div>
-            <div className="input-container">
-              <label htmlFor="FirstName">FirstName:</label>
-              <input
-                type="text"
-                className="form-control"
-                onChange={(event) => {
-                  this.handleOnChangeALLinput(event, "firstName");
-                }}
-                value={this.state.firstName}
-                placeholder="Vu"
-              />
-            </div>
-            <div className="input-container">
-              <label htmlFor="LastName">LastName:</label>
-              <input
-                type="text"
-                className="form-control"
-                onChange={(event) => {
-                  this.handleOnChangeALLinput(event, "lastName");
-                }}
-                value={this.state.lastName}
-                placeholder="Hoa Binh"
-              />
-            </div>
-            <div className="input-container">
-              <label htmlFor="Address">Address:</label>
-              <input
-                type="text"
-                className="form-control"
-                onChange={(event) => {
-                  this.handleOnChangeALLinput(event, "address");
-                }}
-                value={this.state.address}
-                placeholder="90 Khue My"
-              />
-            </div>
-            <div className="input-container ">
-              <label htmlFor="Phone">Phone:</label>
-              <input
-                type="text"
-                className="form-control"
-                onChange={(event) => {
-                  this.handleOnChangeALLinput(event, "phone");
-                }}
-                value={this.state.phone}
-                placeholder="12312312389"
-              />
-            </div>
+      <div className="text-center">
+        <ModalUser
+          isOpen={this.state.isOpen}
+          toggleUserModal={this.toggleUserModal}
+          getCreateUserModal={this.getCreateUserModal}
+        />
+        {this.state.isOpenEditUser && (
+          <ModalEditUser
+            isOpenEditUser={this.state.isOpenEditUser}
+            toggleUserModal={this.toggleEditUserModal}
+            getUserModal={this.state.userEdit}
+            editUserModal={this.handleOnClickEditUserInfo}
+          />
+        )}
+        <h1 className="title text-center">Manage information users</h1>
+        <div className="mx-1 text-left m-3">
+          <button
+            className="btn btn-primary px-3"
+            onClick={() => this.handleOnClickNewUsers()}
+          >
+            <i className="fas fa-plus-square"></i> Add new users
+          </button>
+        </div>
+        <table className="table">
+          <thead className="thead-dark header">
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Password</th>
+              <th scope="col">FirstName</th>
+              <th scope="col">LastName</th>
+              <th scope="col">Address</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Image</th>
+              <th scope="col">RoleID</th>
+              <th scope="col">Position</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody className="bodyTable">
+            {arrayUsers &&
+              arrayUsers.map((item, index) => {
+                // console.log("Check log: ", item, index);
+                return (
+                  <tr key={index} className="trTable">
+                    <td>{item.email}</td>
+                    <td>{item.password}</td>
+                    <td>{item.firstName}</td>
+                    <td>{item.lastName}</td>
+                    <td>{item.address}</td>
+                    <td>{item.phone}</td>
+                    <td>{item.gender === true ? "Male" : "Female"}</td>
 
-            <div className="input-container max-width-input">
-              <label htmlFor="gender">Sex:</label>
-              <FormGroup check className="radioButtonSex">
-                <Label check>
-                  <Input type="radio" name="gender" id="male" value="male" />
-                  {"   "}
-                  Male
-                </Label>
-                <Label check>
-                  <Input
-                    type="radio"
-                    name="gender"
-                    id="female"
-                    value="female"
-                  />{" "}
-                  Female
-                </Label>
-                <Label check>
-                  <Input type="radio" name="gender" id="other" value="other" />
-                  {"   "}
-                  Other
-                </Label>
-              </FormGroup>
-            </div>
-            <div className="input-container">
-              <FormGroup>
-                <Label htmlFor="role">Role</Label>
-                <Input type="select" name="roleID" id="role">
-                  <option selected>R1</option>
-                  <option>R2</option>
-                  <option>R3</option>
-                </Input>
-              </FormGroup>
-            </div>
-            <div className="input-container ">
-              <FormGroup>
-                <Label htmlFor="position">Position</Label>
-                <Input type="select" name="position" id="position">
-                  <option value="Admin">Admin</option>
-                  <option value="Doctor">Doctor</option>
-                  <option value="Patient">Patient</option>
-                </Input>
-              </FormGroup>
-            </div>
-          </div>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            color="primary"
-            className="px-3"
-            onClick={() => {
-              this.handleOnClickAddNew();
-            }}
-          >
-            Save
-          </Button>
-          <Button
-            color="secondary"
-            className="px-3"
-            onClick={() => {
-              this.toggle();
-            }}
-          >
-            Close
-          </Button>
-        </ModalFooter>
-      </Modal>
+                    {/* <td>{item.image}</td> */}
+                    <td>null</td>
+                    <td>{item.roleID}</td>
+                    <td>{item.position}</td>
+                    <td>
+                      <button
+                        className="btn-edit"
+                        onClick={() => this.handleOnClickEditUser(item)}
+                      >
+                        <i className="fas fa-edit"></i>
+                      </button>
+                      <button
+                        className="btn-delete"
+                        onClick={() => this.handleOnClickDelete(item)}
+                      >
+                        <i className="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
@@ -271,4 +208,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(UserManage);
