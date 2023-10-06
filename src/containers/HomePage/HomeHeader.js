@@ -3,9 +3,16 @@ import { connect } from "react-redux";
 import "./HomeHeader.scss";
 import logo from "../../assets/logo.jpg";
 import { FormattedMessage } from "react-intl";
+import { LANGUAGE } from "../../utils";
+import { changeLanguageApp } from "../../store/actions"; // have file index export
 
 class HomeHeader extends Component {
+  changeLanguage = (lang) => {
+    this.props.changeLanguageReduxAction(lang);
+  };
+
   render() {
+    let langRedux = this.props.lang;
     return (
       <React.Fragment>
         <div className="home-header-container">
@@ -48,7 +55,7 @@ class HomeHeader extends Component {
               <div className="center-child">
                 <div>
                   <b>
-                    <FormattedMessage id="HomeHeader.MedicalExaminationPackage" />
+                    <FormattedMessage id="HomeHeader.MedicalPackage" />
                   </b>
                 </div>
                 <div className="subChild">
@@ -61,8 +68,24 @@ class HomeHeader extends Component {
                 <i className="fa-solid fa-clipboard-question"></i>{" "}
                 <FormattedMessage id="HomeHeader.Support" />
               </div>
-              <div className="flagLanguageVN active">VN</div>
-              <div className="flagLanguageEN active">EN</div>
+              <div
+                className={
+                  langRedux === LANGUAGE.VI
+                    ? "flagLanguageVN active"
+                    : "flagLanguageVN"
+                }
+              >
+                <span onClick={() => this.changeLanguage(LANGUAGE.VI)}>VN</span>
+              </div>
+              <div
+                className={
+                  langRedux === LANGUAGE.EN
+                    ? "flagLanguageEN active"
+                    : "flagLanguageEN "
+                }
+              >
+                <span onClick={() => this.changeLanguage(LANGUAGE.EN)}>EN</span>
+              </div>
             </div>
           </div>
         </div>
@@ -107,7 +130,7 @@ class HomeHeader extends Component {
               </div>
               <div className="options-child">
                 <div className="icon-child">
-                  <i class="fa-solid fa-microscope"></i>
+                  <i className="fa-solid fa-microscope"></i>
                 </div>
                 <div className="text-child">
                   <FormattedMessage id="Banner.MedicalTests" />
@@ -115,7 +138,7 @@ class HomeHeader extends Component {
               </div>
               <div className="options-child">
                 <div className="icon-child">
-                  <i class="fa-solid fa-notes-medical"></i>
+                  <i className="fa-solid fa-notes-medical"></i>
                 </div>
                 <div className="text-child">
                   <FormattedMessage id="Banner.mentalHealth" />
@@ -123,7 +146,7 @@ class HomeHeader extends Component {
               </div>
               <div className="options-child">
                 <div className="icon-child">
-                  <i class="fa-solid fa-tooth"></i>
+                  <i className="fa-solid fa-tooth"></i>
                 </div>
                 <div className="text-child">
                   <FormattedMessage id="Banner.dentalExamination" />
@@ -145,7 +168,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    changeLanguageReduxAction: (lang) => dispatch(changeLanguageApp(lang)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);

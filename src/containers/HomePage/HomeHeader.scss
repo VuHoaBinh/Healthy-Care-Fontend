@@ -52,15 +52,25 @@
             }
             .flagLanguageVN{
                 cursor: pointer;
+                opacity: 0.5;
+
                 &.active{
-                    color: red;
+                    opacity: -0.2;
+                    span{
+                        color: red;
+                    }
                 }
             }  
             .flagLanguageEN{
                 cursor: pointer;
                 margin: 0 10px;
+                opacity: 0.5;
+
                 &.active{
-                    color: red;
+                    opacity: -0.2;
+                    span{
+                        color: red;
+                    }
                 }
             }   
             

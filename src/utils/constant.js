@@ -6,7 +6,7 @@ export const path = {
   SYSTEM: "/system",
 };
 
-export const languages = {
+export const LANGUAGE = {
   VI: "vi",
   EN: "en",
 };
