@@ -9,13 +9,14 @@
         height: 100%;
         .home-header-left{
             width: 25%;
-            border: 5px solid orange;
             display: flex;
             align-items: center;
             .logo{
-                background:url("../../assets/logo.jpg") center center no-repeat;
-                padding: 100px;
+                height: 79%;
+                width: 19%;
                 cursor: pointer;
+                // transition: scale(0.5, 0.5);
+                margin-left: 34px;
             }
             i{
                 font-size: 25px;
@@ -24,8 +25,7 @@
             }
         }
         .home-header-center{
-            width: 50%;
-            border: 5px solid orange;
+            width: 55%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -37,10 +37,33 @@
         }
         .home-header-right{
             width: 25%;
-            border: 5px solid orange;
             display: flex;
             justify-content: center;
             align-items: center;
+            .support{
+                padding-right: 50px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                i{
+                    font-size:15px;
+                    margin-right: 5px;
+                }
+            }
+            .flagLanguageVN{
+                cursor: pointer;
+                &.active{
+                    color: red;
+                }
+            }  
+            .flagLanguageEN{
+                cursor: pointer;
+                margin: 0 10px;
+                &.active{
+                    color: red;
+                }
+            }   
+            
         }
     }
 }
@@ -53,10 +76,10 @@
     background-size:cover;
     display: flex;
     flex-direction: column;
-
+    
     .content-north {
-        border: 1px solid red;
-        height: 50%;
+        height: 65%;
+        background: linear-gradient(black, gray);
 
         .title1{
             text-align: center;
@@ -99,8 +122,12 @@
     }
 
     .content-south{
-        border: 1px solid green;
-        height: 50%;
+        height: 35%;
+        display: flex;
+        align-items: flex-end;
+        justify-content:center;
+        background: linear-gradient(black, gray, white);
+
         .options{
             display: flex;
             text-align: center;
@@ -120,6 +147,7 @@
                     i{
                         color:orange;
                         font-size:20px;
+                        font-weight: bold;
                     }
                 }
                 .text-child{
