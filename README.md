@@ -85,3 +85,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## import react-slick (use --legacy-peer-deps to fix issue for react v17)
 ` npm i react-slick --legacy-peer-deps`
+-> https://www.npmjs.com/package/react-slick

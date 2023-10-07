@@ -11,7 +11,8 @@ class MenuGroup extends Component {
     return (
       <li className="menu-group">
         <div className="menu-group-name">
-          <FormattedMessage id={name} />
+          {/* <FormattedMessage id={name} /> */}
+          Trang chu
         </div>
         <ul className="menu-list list-unstyled">{children}</ul>
       </li>
@@ -51,7 +52,8 @@ class Menu extends Component {
           </Fragment>
         ) : (
           <Link to={link} className="menu-link" onClick={onLinkClick}>
-            <FormattedMessage id={name} />
+            {/* <FormattedMessage id={name} /> */}
+            Trang chu
           </Link>
         )}
       </li>

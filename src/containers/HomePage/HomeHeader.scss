@@ -132,6 +132,7 @@
     }
 
     .content-south{
+        padding-bottom: 10px;
         height: 35%;
         display: flex;
         align-items: flex-end;
@@ -144,7 +145,7 @@
             gap:50px;
             justify-content: center;
             .options-child{
-                border: 1px solid green;
+                // border: 1px solid green;
                 width: 100px;
                 .icon-child{
                     background: rgb(225, 14, 14);
