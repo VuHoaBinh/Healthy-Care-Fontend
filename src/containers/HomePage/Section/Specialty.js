@@ -6,14 +6,37 @@ import { FormattedMessage } from "react-intl";
 // import slick
 import Slider from "react-slick";
 
+function PreArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "green" }}
+      onClick={onClick}
+    ></div>
+  );
+}
+
+function NextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "red" }}
+      onClick={onClick}
+    ></div>
+  );
+}
 class Specialty extends Component {
   render() {
     let settings = {
       dots: false,
       infinite: true,
       speed: 500,
-      slidesToShow: 1,
+      slidesToShow: 4,
       slidesToScroll: 1,
+      // nextArrow: <NextArrow />,
+      // prevArrow: <PreArrow />,
     };
     return (
       <div class="section-specialty">
