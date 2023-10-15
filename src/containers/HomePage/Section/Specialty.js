@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./Specialty.scss";
 import { FormattedMessage } from "react-intl";
-
+import logoSlider from "../../../assets/logo.jpg";
 // import slick
 import Slider from "react-slick";
 
@@ -39,28 +39,44 @@ class Specialty extends Component {
       // prevArrow: <PreArrow />,
     };
     return (
-      <div class="section-specialty">
+      <div className="section-specialty">
         <div className="specialty-content">
-          <Slider {...settings}>
-            <div className="img">
-              <h3>1</h3>
-            </div>
-            <div className="img">
-              <h3>2</h3>
-            </div>
-            <div className="img">
-              <h3>3</h3>
-            </div>
-            <div className="img">
-              <h3>4</h3>
-            </div>
-            <div className="img">
-              <h3>5</h3>
-            </div>
-            <div className="img">
-              <h3>6</h3>
-            </div>
-          </Slider>
+          <div className="specialty-header">
+            <span>Chuyen khoa pho bien</span>
+            <button>Xem them</button>
+          </div>
+          <div className="specialty-body">
+            <Slider {...settings}>
+              <div className="img">
+                <img src={logoSlider} />
+                <div>Co xuong khop 1</div>
+              </div>
+              <div className="img">
+                <img src={logoSlider} />
+                <div>Co xuong khop 2</div>
+              </div>
+              <div className="img">
+                <img src={logoSlider} />
+                <div>Co xuong khop 3</div>
+              </div>
+              <div className="img">
+                <img src={logoSlider} />
+                <div>Co xuong khop 4</div>
+              </div>
+              <div className="img">
+                <img src={logoSlider} />
+                <div>Co xuong khop 5</div>
+              </div>
+              <div className="img">
+                <img src={logoSlider} />
+                <div>Co xuong khop 6</div>
+              </div>
+              <div className="img">
+                <img src={logoSlider} />
+                <div>Co xuong khop 7</div>
+              </div>
+            </Slider>
+          </div>
         </div>
       </div>
     );

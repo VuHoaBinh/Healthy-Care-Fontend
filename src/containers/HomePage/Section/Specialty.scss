@@ -3,7 +3,15 @@
     background: white ;
     .specialty-content{
         margin:0 50px;
-
+        display: flex;
+        flex-direction: column;
+        .specialty-header{
+            height:60px;
+            border: 1px solid green ;
+        }
+        .specialty-body{
+            
+        }
         .img{
             height: 300px;
         }
@@ -24,9 +32,15 @@
     z-index: 1000 !important;
     height: 40px !important;
     width: 40px !important;
+    background: rgb(255, 255, 255) !important;
+
+    &:hover{
+        background: rgb(110, 108, 108) !important;
+    }
 } 
 
 .slick-prev::before{
+    font-family: FontAwesome !important;
     content: "\f053" !important;
 }
 
@@ -35,8 +49,12 @@
     right:0 !important;
     height: 40px !important;
     width: 40px !important;
+    &:hover{
+        background: rgb(110, 108, 108) !important;
+    }
 }
 
 .slick-next::before{
+    font-family: FontAwesome !important;
     content: "\f054" !important; // sign unicode
 }
