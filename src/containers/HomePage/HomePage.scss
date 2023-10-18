@@ -1,0 +1,90 @@
+.section-share {
+    height:400px;
+    background: white ;
+
+    &.section-specialty{
+        background: rgb(255, 255, 255);
+    }
+    &.section-Facility{
+        background: rgb(148, 146, 146);
+    }
+    &.section-Branches{
+        background: rgb(255, 255, 255);
+    }
+    &.section-Doctor{
+        background: rgb(148, 146, 146);
+    }
+    &.section-About{
+        height: 500px !important;
+    }
+    .specialty-content{
+        margin:0 50px;
+        display: flex;
+        flex-direction: column;
+        .specialty-header{
+            height:60px;
+            margin-top: 20px;
+            position: relative;
+            .title-section{
+                font-size: 23px;
+                font-weight: bold;
+            }
+            .btn-section{
+                right:0;
+                position:absolute;
+                border: none;
+                outline: none;
+                text-transform: uppercase;
+                &:hover{
+                    background-color: rgb(233, 233, 161);
+                    color: white;
+                }
+                padding:10px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.slick-prev{
+    border: 1px solid rgb(110, 108, 108) !important;
+    left:0 !important;
+    // top:100px;
+    z-index: 1000 !important;
+    height: 40px !important;
+    width: 40px !important;
+    background: rgb(255, 255, 255) !important;
+
+    &:hover{
+        background: rgb(110, 108, 108) !important;
+    }
+} 
+
+.slick-prev::before{
+    font-family: FontAwesome !important;
+    content: "\f053" !important;
+}
+
+.slick-next {
+    border: 1px solid rgb(110, 108, 108) !important;
+    right:0 !important;
+    height: 40px !important;
+    width: 40px !important;
+    
+    &:hover{
+        background: rgb(110, 108, 108) !important;
+    }
+}
+
+.slick-next::before{
+    font-family: FontAwesome !important;
+    content: "\f054" !important; // sign unicode
+}
+
+.footer{
+    text-align: center;
+    padding:10px;
+    .a{
+        text-decoration: none;
+    }
+}

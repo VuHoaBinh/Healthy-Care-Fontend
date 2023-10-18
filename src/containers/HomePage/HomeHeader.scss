@@ -1,8 +1,12 @@
 .home-header-container {
+    position: sticky;
+    top: 0;
+    background-color: white;
     height: 80px;
     // border: 5px solid red;
     width: 100%;
     padding:0 10px;
+    z-index: 100;
     .home-header-content{
         width: 100%;
         display: flex;

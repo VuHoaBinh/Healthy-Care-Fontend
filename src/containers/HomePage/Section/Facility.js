@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./Specialty.scss";
+import "./Facility.scss";
 import { FormattedMessage } from "react-intl";
 // import slick
 import Slider from "react-slick";
@@ -26,14 +26,14 @@ function NextArrow(props) {
     ></div>
   );
 }
-class Specialty extends Component {
+class Facility extends Component {
   render() {
     let settings = this.props.settings;
     return (
-      <div className="section-share section-specialty">
+      <div className="section-share section-Facility">
         <div className="specialty-content">
           <div className="specialty-header">
-            <span className="title-section">Chuyen khoa pho bien</span>
+            <span className="title-section">Bác sĩ từ xa qua Video</span>
             <button className="btn-section">Xem them</button>
           </div>
           <div className="specialty-body">
@@ -85,4 +85,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default connect(mapStateToProps, mapDispatchToProps)(Facility);
