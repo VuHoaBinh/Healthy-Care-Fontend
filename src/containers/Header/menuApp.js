@@ -1,26 +1,25 @@
 export const adminMenu = [
   {
     //hệ thống
-    name: "menu.system.header",
+    name: "SYSTEM MANAGE",
     menus: [
       {
-        name: "menu.system.system-administrator.header",
+        name: "ADMIN",
         subMenus: [
           {
-            name: "menu.system.system-administrator.user-manage",
+            name: "Manage User",
             link: "/system/user-manage",
           },
           {
-            name: "menu.system.system-administrator.product-manage",
+            name: "Manage Product",
             link: "/system/product-manage",
           },
           {
-            name: "menu.system.system-administrator.register-package-group-or-account",
+            name: "Manage Information User",
             link: "/system/register-package-group-or-account",
           },
         ],
       },
-      // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
     ],
   },
 ];

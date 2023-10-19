@@ -9,6 +9,7 @@ import Doctor from "./Section/Doctor";
 import About from "./Section/About";
 import HomeFooter from "./HomeFooter";
 import "./HomePage.scss";
+
 class HomePage extends Component {
   render() {
     let settings = {
