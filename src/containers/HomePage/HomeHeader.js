@@ -152,6 +152,38 @@ class HomeHeader extends Component {
                   <FormattedMessage id="Banner.dentalExamination" />
                 </div>
               </div>
+              <div className="options-child">
+                <div className="icon-child">
+                  <i className="fa-solid fa-bed-pulse"></i>
+                </div>
+                <div className="text-child">
+                  <FormattedMessage id="Banner.surgicalPackage" />
+                </div>
+              </div>
+              <div className="options-child">
+                <div className="icon-child">
+                  <i className="fa-solid fa-dna"></i>
+                </div>
+                <div className="text-child">
+                  <FormattedMessage id="Banner.healthyLivingDiabetes" />
+                </div>
+              </div>
+              <div className="options-child">
+                <div className="icon-child">
+                  <i className="fa-solid fa-book-open-reader"></i>
+                </div>
+                <div className="text-child">
+                  <FormattedMessage id="Banner.testHealth" />
+                </div>
+              </div>
+              <div className="options-child">
+                <div className="icon-child">
+                  <i className="fa-solid fa-hospital-user"></i>
+                </div>
+                <div className="text-child">
+                  <FormattedMessage id="Banner.nearestMedicalFacility" />
+                </div>
+              </div>
             </div>
           </div>
         </div>

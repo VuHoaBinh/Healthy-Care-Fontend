@@ -8,15 +8,15 @@ export const adminMenu = [
         subMenus: [
           {
             name: "Manage User",
-            link: "/system/user-manage",
+            link: "/system/UserManage",
           },
           {
             name: "Manage Product",
-            link: "/system/product-manage",
+            link: "/system/ProductManage",
           },
           {
             name: "Manage Information User",
-            link: "/system/register-package-group-or-account",
+            link: "/system/InformationManage",
           },
         ],
       },

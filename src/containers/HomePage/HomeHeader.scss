@@ -15,6 +15,8 @@
             width: 25%;
             display: flex;
             align-items: center;
+            margin-right: -128px;
+            margin-left: 106px;
             .logo{
                 height: 79%;
                 width: 19%;
@@ -83,17 +85,17 @@
 }
 
 .home-header-banner{
-    background-image: url("../../assets/logo.jpg");
+    background-image: url("../../assets/banner.jpg");
     height:485px;
     background-repeat: no-repeat;
     background-position:center;
     background-size:cover;
     display: flex;
     flex-direction: column;
-    
+    // opacity: 0.8;
     .content-north {
         height: 65%;
-        background: linear-gradient(black, gray);
+        // background: linear-gradient(black, gray);
 
         .title1{
             text-align: center;
@@ -132,6 +134,9 @@
                 border:none;
                 outline: none;
             }
+            &:hover{
+                border-radius: 50px;
+            }
         }
     }
 
@@ -141,15 +146,15 @@
         display: flex;
         align-items: flex-end;
         justify-content:center;
-        background: linear-gradient(black, gray, white);
-
         .options{
             display: flex;
             text-align: center;
             gap:50px;
             justify-content: center;
             .options-child{
-                // border: 1px solid green;
+                background-color: rgb(190, 188, 188);
+                padding-top: 5px;
+                border-radius:10%;
                 width: 100px;
                 .icon-child{
                     background: rgb(225, 14, 14);
@@ -170,11 +175,12 @@
                     font-weight: 500;
                     cursor: pointer;
                     &:hover{
-                        color:orange;
+                        color:red;
                     }
                 }
             }
         }
+        
         
     }
 }

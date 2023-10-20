@@ -12,7 +12,7 @@ class Header extends Component {
     this.props.changeLanguageReduxAction(lang);
   };
   render() {
-    const { processLogout } = this.props;
+    const { processLogout, lang } = this.props;
     return (
       <div className="header-container">
         {/* thanh navigator */}
@@ -21,13 +21,13 @@ class Header extends Component {
         </div>
         <div className="header-language">
           <span
-            className="VN active"
+            className={lang === LANGUAGE.VI ? "VN active" : "VN"}
             onClick={() => this.handleLanguageChange(LANGUAGE.VI)}
           >
             VN
           </span>
           <span
-            className="EN active"
+            className={lang === LANGUAGE.EN ? "EN active" : "EN"}
             onClick={() => this.handleLanguageChange(LANGUAGE.EN)}
           >
             EN

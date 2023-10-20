@@ -13,13 +13,16 @@
     "Banner": {
         "medicalPlatform":"Medical platform",
         "ComprehensiveHealthCare":"Comprehensive health care",
-        "Specialized examination":"Khám chuyên khoa",
         "SpecializedExamination":"Specialized examination",
         "RemoteExamination":"Remote examination",
         "GeneralExamination":"General examination",
         "MedicalTests":"Medical tests",
-        "mentalHealth":"mental health",
-        "dentalExamination":"dental examination"
+        "mentalHealth":"Mental health",
+        "dentalExamination":"Dental examination",
+        "surgicalPackage":"Surgical package",
+        "healthyLivingDiabetes":"Healthy living & diabetes",
+        "testHealth":"Test & health",
+        "nearestMedicalFacility":"Nearest medical facility"
     }
-    
+   
 }

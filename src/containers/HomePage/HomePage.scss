@@ -3,16 +3,16 @@
     background: white ;
 
     &.section-specialty{
-        background: rgb(255, 255, 255);
+        background: rgb(222, 216, 216);
     }
     &.section-Facility{
-        background: rgb(148, 146, 146);
-    }
-    &.section-Branches{
         background: rgb(255, 255, 255);
     }
-    &.section-Doctor{
+    &.section-Branches{
         background: rgb(148, 146, 146);
+    }
+    &.section-Doctor{
+        background: rgb(255, 255, 255);
     }
     &.section-About{
         height: 500px !important;

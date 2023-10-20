@@ -15,9 +15,9 @@ class About extends Component {
               height="420"
               src="https://www.youtube.com/embed/XuEsaMHUsuY"
               title="Listening Road to IELTS | Test 9"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
           <div className="describe">

@@ -18,7 +18,11 @@
         "GeneralExamination":"Khám tổng quát",
         "MedicalTests":"Xét nghiệm y học",
         "mentalHealth":"Sức khỏe & tinh thần",
-        "dentalExamination":"Khám nha khoa"
+        "dentalExamination":"Khám nha khoa",
+        "surgicalPackage":"Gói phẩu thuật",
+        "healthyLivingDiabetes":"Sống khỏe & tiểu đường",
+        "testHealth":"Bài test & sức khỏe",
+        "nearestMedicalFacility":"Y tế gần nhất"
     }
 
 }
