@@ -8,7 +8,8 @@
         "ChooseAGoodDoctor":"Chọn bác sĩ giỏi",
         "MedicalPackage":"Gói khám bệnh",
         "GeneralHealthExamination":"Khám sức khoẻ tổng quát",
-        "Support":"Hỗ trợ"
+        "Support":"Hỗ trợ",
+        "Welcome":"Xin chao"
     },
     "Banner": {
         "medicalPlatform":"Nền tảng y tế",

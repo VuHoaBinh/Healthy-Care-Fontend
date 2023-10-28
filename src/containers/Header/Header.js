@@ -6,6 +6,7 @@ import Navigator from "../../components/Navigator";
 import { adminMenu } from "./menuApp";
 import "./Header.scss";
 import { LANGUAGE } from "../../utils";
+import { FormattedMessage } from "react-intl";
 
 class Header extends Component {
   handleLanguageChange = (lang) => {
@@ -20,6 +21,10 @@ class Header extends Component {
           <Navigator menus={adminMenu} />
         </div>
         <div className="header-language">
+          <span className="welcome">
+            <FormattedMessage id="HomeHeader.Welcome" />, admin!
+          </span>
+          <span></span>
           <span
             className={lang === LANGUAGE.VI ? "VN active" : "VN"}
             onClick={() => this.handleLanguageChange(LANGUAGE.VI)}

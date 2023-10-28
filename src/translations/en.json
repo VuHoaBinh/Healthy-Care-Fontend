@@ -8,7 +8,8 @@
         "ChooseAGoodDoctor":"Choose a good doctor",
         "MedicalPackage":"Medical package",
         "GeneralHealthExamination":"General health examination",
-        "Support":"Support" 
+        "Support":"Support",
+        "Welcome":"Hello" 
     },
     "Banner": {
         "medicalPlatform":"Medical platform",
