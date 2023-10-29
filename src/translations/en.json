@@ -24,6 +24,21 @@
         "healthyLivingDiabetes":"Healthy living & diabetes",
         "testHealth":"Test & health",
         "nearestMedicalFacility":"Nearest medical facility"
+    },
+    "Menu":{
+        "admin":{
+            "manager-user":"Manage User",
+            "manager-doctor":"Manage doctor",
+            "manager-admin":"Manage admin",
+            "crud":"CRUD user",
+            "crudRedux":"CRUD Redux",
+            "manager-clinic":"Manage Clinic",
+            "clinic":"Clinic",
+            "specialty":"Specialty",
+            "manage-specialty":"Manage specialty",
+            "handBook":"Hand Book",
+            "manager-handBook":"Manage Hand Book"
+
+        }
     }
-   
 }

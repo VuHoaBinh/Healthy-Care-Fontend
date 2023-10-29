@@ -24,6 +24,21 @@
         "healthyLivingDiabetes":"Sống khỏe & tiểu đường",
         "testHealth":"Bài test & sức khỏe",
         "nearestMedicalFacility":"Y tế gần nhất"
-    }
+    },
+    "Menu":{
+        "admin":{
+            "manager-user":"Quan li nguoi dung",
+            "manager-doctor":"Quan li bac si",
+            "manager-admin":"Quan li admin",
+            "crud":"CRUD user",
+            "crudRedux":"CRUD Redux",
+            "manager-clinic":"Quan li phong kham",
+            "clinic":"Phong kham",
+            "specialty":"Chuyen khoa",
+            "manage-specialty":"Quan li chuyen khoa",
+            "handBook":"Cam nang",
+            "manager-handBook":"Quan li cam nang"
 
+        }
+    }
 }

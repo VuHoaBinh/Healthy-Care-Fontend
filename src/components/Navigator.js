@@ -11,8 +11,8 @@ class MenuGroup extends Component {
     return (
       <li className="menu-group">
         <div className="menu-group-name">
-          {/* <FormattedMessage id={name} /> */}
-          Trang chu
+          <FormattedMessage id={name} />
+          {/* Trang chu */}
         </div>
         <ul className="menu-list list-unstyled">{children}</ul>
       </li>
