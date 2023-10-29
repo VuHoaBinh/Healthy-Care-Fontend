@@ -13,11 +13,11 @@ export const adminMenu = [
       },
       {
         name: "Menu.admin.crud",
-        link: "/system/UserManage",
+        link: "/system/crud",
       },
       {
         name: "Menu.admin.crudRedux",
-        link: "/system/UserManage",
+        link: "/system/crudRedux",
       },
     ],
   },
@@ -26,8 +26,8 @@ export const adminMenu = [
     name: "Menu.admin.clinic",
     menus: [
       {
-        name: "Menu.admin.manager-clinic",
-        link: "/system/manager-clinic",
+        name: "Menu.admin.manage-clinic",
+        link: "/system/manage-clinic",
       },
     ],
   },
@@ -36,8 +36,8 @@ export const adminMenu = [
     name: "Menu.admin.specialty",
     menus: [
       {
-        name: "Menu.admin.manager-specialty",
-        link: "/system/manager-specialty",
+        name: "Menu.admin.manage-specialty",
+        link: "/system/manage-specialty",
       },
     ],
   },
@@ -46,8 +46,8 @@ export const adminMenu = [
     name: "Menu.admin.handBook",
     menus: [
       {
-        name: "Menu.admin.manager-handBook",
-        link: "/system/manager-handBook",
+        name: "Menu.admin.manage-handBook",
+        link: "/system/manage-handBook",
       },
     ],
   },

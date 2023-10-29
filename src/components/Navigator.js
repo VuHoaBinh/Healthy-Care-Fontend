@@ -12,7 +12,6 @@ class MenuGroup extends Component {
       <li className="menu-group">
         <div className="menu-group-name">
           <FormattedMessage id={name} />
-          {/* Trang chu */}
         </div>
         <ul className="menu-list list-unstyled">{children}</ul>
       </li>
@@ -39,6 +38,7 @@ class Menu extends Component {
               data-toggle="collapse"
               className={"menu-link collapsed"}
               onClick={onClick}
+              // trạng thái mở đóng menu
               aria-expanded={"false"}
             >
               <FormattedMessage id={name} />
@@ -52,8 +52,7 @@ class Menu extends Component {
           </Fragment>
         ) : (
           <Link to={link} className="menu-link" onClick={onLinkClick}>
-            {/* <FormattedMessage id={name} /> */}
-            Trang chu
+            <FormattedMessage id={name} />
           </Link>
         )}
       </li>

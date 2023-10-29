@@ -32,12 +32,12 @@
             "manager-admin":"Manage admin",
             "crud":"CRUD user",
             "crudRedux":"CRUD Redux",
-            "manager-clinic":"Manage Clinic",
+            "manage-clinic":"Manage Clinic",
             "clinic":"Clinic",
             "specialty":"Specialty",
             "manage-specialty":"Manage specialty",
             "handBook":"Hand Book",
-            "manager-handBook":"Manage Hand Book"
+            "manage-handBook":"Manage Hand Book"
 
         }
     }
