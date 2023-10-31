@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllCodeService } from "../../../services/userServices";
 import { LANGUAGE } from "../../../utils";
+import * as actions from "../../../store/actions";
+
 class ProductManage extends Component {
   constructor(props) {
     super(props);
@@ -12,22 +14,26 @@ class ProductManage extends Component {
   }
 
   async componentDidMount() {
-    try {
-      let res = await getAllCodeService("gender");
-      if (res && res.errCode === 0) {
-        this.setState({
-          genderArray: res.data,
-        });
-      }
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
+    // try {
+    //   let res = await getAllCodeService("gender");
+    //   if (res && res.errCode === 0) {
+    //     this.setState({
+    //       genderArray: res.data,
+    //     });
+    //   }
+    //   console.log(res);
+    // } catch (e) {
+    //   console.log(e);
+    // }
+
+    this.props.getGenderStart();
+    // or : this.props.dispatch(actions.getGenderStart());
   }
 
   render() {
     let gender = this.state.genderArray;
     let langRedux = this.props.lang;
+
     return (
       <div>
         <div className="text-center">Manage products</div>
@@ -123,12 +129,17 @@ class ProductManage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    lang: state.app.language,
+    lang: state.app.language, // app in file rootReducer
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getGenderStart: () => dispatch(actions.fetchGenderStart()),
+    // processLogout: () => dispatch(actions.processLogout()),
+    // changeLanguageReduxAction: (lang) =>
+    //   dispatch(actions.changeLanguageApp(lang)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductManage);
