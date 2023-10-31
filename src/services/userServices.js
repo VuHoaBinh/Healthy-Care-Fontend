@@ -23,10 +23,15 @@ const deleteUserService = (data) => {
 const editUserService = (dataNew) => {
   return axios.put("/api/edit-user", dataNew);
 };
+const getAllCodeService = (data) => {
+  return axios.get(`/api/allCode?type=${data}`);
+};
+
 export {
   handleLoginAPI,
   getAllUser,
   getCreateUserService,
   deleteUserService,
   editUserService,
+  getAllCodeService,
 };
