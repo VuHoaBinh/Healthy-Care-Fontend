@@ -30,9 +30,21 @@ class ProductManage extends Component {
     // or : this.props.dispatch(actions.getGenderStart());
   }
 
+  // life cycle
+  // Compare with componentDidMount: componentDidUpdate will update many time with genderRedux, but componentDidMount is only 1 time
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    //update state of gender redux
+    if (prevProps.genderRedux !== this.props.genderRedux) {
+      this.setState({
+        genderArray: this.props.genderRedux,
+      });
+    }
+  }
+
   render() {
     let gender = this.state.genderArray;
     let langRedux = this.props.lang;
+    let genderRedux = this.props.genderRedux;
 
     return (
       <div>
@@ -130,6 +142,7 @@ class ProductManage extends Component {
 const mapStateToProps = (state) => {
   return {
     lang: state.app.language, // app in file rootReducer
+    genderRedux: state.admin.genderArray,
   };
 };
 
