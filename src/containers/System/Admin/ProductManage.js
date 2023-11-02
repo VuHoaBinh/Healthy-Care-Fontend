@@ -10,6 +10,8 @@ class ProductManage extends Component {
     super(props);
     this.state = {
       genderArray: [],
+      positionArray: [],
+      roleIDArray: [],
     };
   }
 
@@ -34,9 +36,15 @@ class ProductManage extends Component {
   // Compare with componentDidMount: componentDidUpdate will update many time with genderRedux, but componentDidMount is only 1 time
   componentDidUpdate(prevProps, prevState, snapshot) {
     //update state of gender redux
-    if (prevProps.genderRedux !== this.props.genderRedux) {
+    if (
+      prevProps.genderRedux !== this.props.genderRedux &&
+      prevProps.positionRedux !== this.props.positionRedux &&
+      prevProps.roleIDredux !== this.props.roleIDredux
+    ) {
       this.setState({
         genderArray: this.props.genderRedux,
+        positionArray: this.props.positionRedux,
+        roleIDArray: this.props.roleIDredux,
       });
     }
   }
@@ -45,10 +53,17 @@ class ProductManage extends Component {
     let gender = this.state.genderArray;
     let langRedux = this.props.lang;
     let genderRedux = this.props.genderRedux;
+    let isLoadingGender = this.props.isLoadingGender;
+    let positionRedux = this.props.positionRedux;
+    let roleIDredux = this.props.roleIDredux;
+
+    console.log("1:", positionRedux);
+    console.log("1:", roleIDredux);
 
     return (
       <div>
         <div className="text-center">Manage products</div>
+        <div>{isLoadingGender === true ? "Loading ........." : ""}</div>
         <div className="form-redux-user-body">
           <form>
             <div class="form-row">
@@ -143,6 +158,9 @@ const mapStateToProps = (state) => {
   return {
     lang: state.app.language, // app in file rootReducer
     genderRedux: state.admin.genderArray,
+    isLoadingGender: state.admin.isLoadingGender,
+    positionRedux: state.admin.positionArray,
+    roleIDRedux: state.admin.roleIDArray,
   };
 };
 
