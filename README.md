@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). - SERN (SQL, Express, ReactJS, NodeJS)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## 💻 GETTING STARTED
 
@@ -90,3 +90,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## css content icon
 https://astronautweb.co/snippet/font-awesome/
+
+
+## img light box
+`npm i react-image-lightbox`

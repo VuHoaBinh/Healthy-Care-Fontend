@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getAllCodeService } from "../../../services/userServices";
 import { LANGUAGE } from "../../../utils";
 import * as actions from "../../../store/actions";
-
+import "./ProductManage.scss";
 class ProductManage extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +12,7 @@ class ProductManage extends Component {
       genderArray: [],
       positionArray: [],
       roleIDArray: [],
+      imgURL: "",
     };
   }
 
@@ -29,6 +30,8 @@ class ProductManage extends Component {
     // }
 
     this.props.getGenderStart();
+    this.props.getPositionStart();
+    this.props.getRoleStart();
     // or : this.props.dispatch(actions.getGenderStart());
   }
 
@@ -36,29 +39,30 @@ class ProductManage extends Component {
   // Compare with componentDidMount: componentDidUpdate will update many time with genderRedux, but componentDidMount is only 1 time
   componentDidUpdate(prevProps, prevState, snapshot) {
     //update state of gender redux
-    if (
-      prevProps.genderRedux !== this.props.genderRedux &&
-      prevProps.positionRedux !== this.props.positionRedux &&
-      prevProps.roleIDredux !== this.props.roleIDredux
-    ) {
+    if (prevProps.genderRedux !== this.props.genderRedux) {
       this.setState({
         genderArray: this.props.genderRedux,
         positionArray: this.props.positionRedux,
-        roleIDArray: this.props.roleIDredux,
+        roleIDArray: this.props.roleIDRedux,
       });
     }
   }
 
+  onChangeHandleImage = (file) => {
+    let getFile = file[0];
+    if (getFile) {
+      let objectUrl = URL.createObjectURL(getFile);
+      this.setState({
+        imgURL: objectUrl,
+      });
+    }
+  };
   render() {
     let gender = this.state.genderArray;
     let langRedux = this.props.lang;
-    let genderRedux = this.props.genderRedux;
     let isLoadingGender = this.props.isLoadingGender;
-    let positionRedux = this.props.positionRedux;
-    let roleIDredux = this.props.roleIDredux;
-
-    console.log("1:", positionRedux);
-    console.log("1:", roleIDredux);
+    let position = this.state.positionArray;
+    let role = this.state.roleIDArray;
 
     return (
       <div>
@@ -66,40 +70,44 @@ class ProductManage extends Component {
         <div>{isLoadingGender === true ? "Loading ........." : ""}</div>
         <div className="form-redux-user-body">
           <form>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="">Email</label>
-                <input type="email" class="form-control" placeholder="Email" />
+            <div className="form-row">
+              <div className="form-group col-md-6">
+                <label htmlFor="">Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="Email"
+                />
               </div>
-              <div class="form-group col-md-6">
-                <label for="">Password</label>
-                <input type="password" class="form-control" />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="">First Name</label>
-                <input type="text" class="form-control" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="">Last Name</label>
-                <input type="text" class="form-control" />
+              <div className="form-group col-md-6">
+                <label htmlFor="">Password</label>
+                <input type="password" className="form-control" />
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="">Address</label>
-                <input type="text" class="form-control" />
+            <div className="form-row">
+              <div className="form-group col-md-6">
+                <label htmlFor="">First Name</label>
+                <input type="text" className="form-control" />
               </div>
-              <div class="form-group col-md-6">
-                <label for="">Phone Number</label>
-                <input type="number" class="form-control" />
+              <div className="form-group col-md-6">
+                <label htmlFor="">Last Name</label>
+                <input type="text" className="form-control" />
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-3">
-                <label for="inputState">Gender</label>
-                <select id="inputState" class="form-control">
+            <div className="form-row">
+              <div className="form-group col-md-6">
+                <label htmlFor="">Address</label>
+                <input type="text" className="form-control" />
+              </div>
+              <div className="form-group col-md-6">
+                <label htmlFor="">Phone Number</label>
+                <input type="number" className="form-control" />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group col-md-3">
+                <label htmlFor="inputState">Gender</label>
+                <select id="inputState" className="form-control">
                   {gender &&
                     gender.length > 0 &&
                     gender.map((item, index) => {
@@ -113,38 +121,74 @@ class ProductManage extends Component {
                     })}
                 </select>
               </div>
-              <div class="form-group col-md-3">
-                <label for="inputState">Position</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
+              <div className="form-group col-md-3">
+                <label htmlFor="inputState">Position</label>
+                <select id="inputState" className="form-control">
+                  {position &&
+                    position.length > 0 &&
+                    position.map((item, index) => {
+                      return (
+                        <option key={index}>
+                          {langRedux === LANGUAGE.VI
+                            ? item.valueVI
+                            : item.valueEN}
+                        </option>
+                      );
+                    })}
                 </select>
               </div>
-              <div class="form-group col-md-3">
-                <label for="inputState">Role</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
+              <div className="form-group col-md-3">
+                <label htmlFor="inputState">Role</label>
+                <select id="inputState" className="form-control">
+                  {role &&
+                    role.length > 0 &&
+                    role.map((item, index) => {
+                      return (
+                        <option key={index}>
+                          {langRedux === LANGUAGE.VI
+                            ? item.valueVI
+                            : item.valueEN}
+                        </option>
+                      );
+                    })}
                 </select>
               </div>
-              <div class="form-group col-md-3">
-                <label for="">Image</label>
-                <input type="image" class="form-control" />
+              <div className="form-group col-md-3">
+                <label htmlFor="">Image</label>
+                <div>
+                  <input
+                    id="img"
+                    type="file"
+                    className="form-control"
+                    hidden
+                    onChange={(event) =>
+                      this.onChangeHandleImage(event.target.files)
+                    }
+                  />
+                  <label htmlFor="img">
+                    {" "}
+                    UpLoad
+                    <i className="fa-solid fa-cloud-arrow-up"></i>
+                  </label>
+                  <div
+                    style={{ backgroundImage: `url(${this.state.imgURL})` }}
+                  ></div>
+                </div>
               </div>
             </div>
-            <div class="form-group">
-              <div class="form-check">
+            <div className="form-group">
+              <div className="form-check">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="checkbox"
                   id="gridCheck"
                 />
-                <label class="form-check-label" for="gridCheck">
+                <label className="form-check-label" htmlFor="gridCheck">
                   Check me out
                 </label>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" className="btn btn-primary">
               Sign in
             </button>
           </form>
@@ -167,6 +211,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getGenderStart: () => dispatch(actions.fetchGenderStart()),
+    getPositionStart: () => dispatch(actions.fetchPositionStart()),
+    getRoleStart: () => dispatch(actions.fetchRoleStart()),
+
     // processLogout: () => dispatch(actions.processLogout()),
     // changeLanguageReduxAction: (lang) =>
     //   dispatch(actions.changeLanguageApp(lang)),

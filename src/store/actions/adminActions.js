@@ -14,7 +14,6 @@ export const fetchGenderStart = () => {
       }
     } catch (e) {
       dispatch(fetchGenderFail());
-      console.log("Fail in fetch gender fail:", e);
     }
   };
 };
@@ -24,7 +23,6 @@ export const fetchPositionStart = () => {
     try {
       dispatch({ type: actionTypes.FETCH_POSITION_START });
       let res = await getAllCodeService("position");
-      console.log("render res of position: ", res);
       if (res && res.errCode === 0) {
         dispatch(fetchPositionSuccess(res.data));
       } else {
@@ -41,8 +39,6 @@ export const fetchRoleStart = () => {
     try {
       dispatch({ type: actionTypes.FETCH_ROLEID_START });
       let res = await getAllCodeService("role");
-      console.log("render res of role: ", res);
-
       if (res && res.errCode === 0) {
         dispatch(fetchRoleSuccess(res.data));
       } else {
@@ -53,6 +49,8 @@ export const fetchRoleStart = () => {
     }
   };
 };
+
+//gender
 export const fetchGenderSuccess = (data) => ({
   type: actionTypes.FETCH_GENDER_SUCCESS,
   data: data,
@@ -62,6 +60,7 @@ export const fetchGenderFail = () => ({
   type: actionTypes.FETCH_GENDER_FAIL,
 });
 
+//position
 export const fetchPositionSuccess = (data) => ({
   type: actionTypes.FETCH_POSITION_SUCCESS,
   data: data,
@@ -71,6 +70,7 @@ export const fetchPositionFail = () => ({
   type: actionTypes.FETCH_POSITION_FAIL,
 });
 
+//role
 export const fetchRoleSuccess = (data) => ({
   type: actionTypes.FETCH_ROLEID_SUCCESS,
   data: data,
