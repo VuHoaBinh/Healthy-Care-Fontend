@@ -13,6 +13,16 @@ class ProductManage extends Component {
       positionArray: [],
       roleIDArray: [],
       imgURL: "",
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      address: "",
+      gender: "",
+      position: "",
+      role: "",
+      avatar: "",
     };
   }
 
@@ -32,6 +42,7 @@ class ProductManage extends Component {
     this.props.getGenderStart();
     this.props.getPositionStart();
     this.props.getRoleStart();
+
     // or : this.props.dispatch(actions.getGenderStart());
   }
 
@@ -42,21 +53,88 @@ class ProductManage extends Component {
     if (prevProps.genderRedux !== this.props.genderRedux) {
       this.setState({
         genderArray: this.props.genderRedux,
+        gender:
+          this.props.genderRedux && this.props.genderRedux.length > 0
+            ? this.props.genderRedux[0].key
+            : "",
+      });
+    }
+
+    if (prevProps.positionRedux !== this.props.positionRedux) {
+      this.setState({
         positionArray: this.props.positionRedux,
+        position:
+          this.props.positionRedux && this.props.positionRedux.length > 0
+            ? this.props.positionRedux[0].key
+            : "",
+      });
+    }
+
+    if (prevProps.roleIDRedux !== this.props.roleIDRedux) {
+      this.setState({
         roleIDArray: this.props.roleIDRedux,
+        role:
+          this.props.roleIDRedux && this.props.roleIDRedux.length > 0
+            ? this.props.roleIDRedux[0].key
+            : "",
       });
     }
   }
 
-  onChangeHandleImage = (file) => {
-    let getFile = file[0];
+  onChangeHandleImage = (files) => {
+    let getFile = files[0];
     if (getFile) {
       let objectUrl = URL.createObjectURL(getFile);
       this.setState({
         imgURL: objectUrl,
+        avatar: getFile,
       });
     }
   };
+
+  handleSaveInfo = (event, id) => {
+    let copyState = { ...this.state };
+    copyState[id] = event.target.value;
+    this.setState({
+      ...copyState,
+    });
+  };
+  handleSaveUser = () => {
+    this.checkValidValue();
+    alert("success");
+    this.props.createNewUser({
+      email: this.state.email,
+      password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      address: this.state.address,
+      phone: this.state.phone,
+      gender: this.state.gender,
+      roleID: this.state.role,
+      position: this.state.position,
+    });
+  };
+  checkValidValue = () => {
+    let isFlag = true;
+    let arrCheck = [
+      "email",
+      "email",
+      "password",
+      "firstName",
+      "lastName",
+      "phone",
+      "address",
+    ];
+    for (let i = 0; i < arrCheck.length; i++) {
+      if (!this.state[arrCheck[i]]) {
+        isFlag = false;
+        alert("Please select enough the information: " + arrCheck[i]);
+        break;
+      }
+    }
+    return isFlag;
+  };
+
   render() {
     let gender = this.state.genderArray;
     let langRedux = this.props.lang;
@@ -64,6 +142,18 @@ class ProductManage extends Component {
     let position = this.state.positionArray;
     let role = this.state.roleIDArray;
 
+    let {
+      emailState,
+      passwordState,
+      firstNameState,
+      lastNameState,
+      phoneState,
+      positionState,
+      roleState,
+      avatarState,
+      addressState,
+      genderdState,
+    } = this.state;
     return (
       <div>
         <div className="text-center">Manage products</div>
@@ -77,42 +167,87 @@ class ProductManage extends Component {
                   type="email"
                   className="form-control"
                   placeholder="Email"
+                  value={emailState}
+                  onChange={(event) => {
+                    this.handleSaveInfo(event, "email");
+                  }}
                 />
               </div>
               <div className="form-group col-md-6">
                 <label htmlFor="">Password</label>
-                <input type="password" className="form-control" />
+                <input
+                  type="password"
+                  className="form-control"
+                  value={passwordState}
+                  onChange={(event) => {
+                    this.handleSaveInfo(event, "password");
+                  }}
+                />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label htmlFor="">First Name</label>
-                <input type="text" className="form-control" />
+                <input
+                  type="text"
+                  className="form-control"
+                  value={firstNameState}
+                  onChange={(event) => {
+                    this.handleSaveInfo(event, "firstName");
+                  }}
+                />
               </div>
               <div className="form-group col-md-6">
                 <label htmlFor="">Last Name</label>
-                <input type="text" className="form-control" />
+                <input
+                  type="text"
+                  className="form-control"
+                  value={lastNameState}
+                  onChange={(event) => {
+                    this.handleSaveInfo(event, "lastName");
+                  }}
+                />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label htmlFor="">Address</label>
-                <input type="text" className="form-control" />
+                <input
+                  type="text"
+                  className="form-control"
+                  value={addressState}
+                  onChange={(event) => {
+                    this.handleSaveInfo(event, "address");
+                  }}
+                />
               </div>
               <div className="form-group col-md-6">
                 <label htmlFor="">Phone Number</label>
-                <input type="number" className="form-control" />
+                <input
+                  type="number"
+                  className="form-control"
+                  value={phoneState}
+                  onChange={(event) => {
+                    this.handleSaveInfo(event, "phone");
+                  }}
+                />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-3">
                 <label htmlFor="inputState">Gender</label>
-                <select id="inputState" className="form-control">
+                <select
+                  id="inputState"
+                  className="form-control"
+                  onChange={(event) => {
+                    this.handleSaveInfo(event, "gender");
+                  }}
+                >
                   {gender &&
                     gender.length > 0 &&
                     gender.map((item, index) => {
                       return (
-                        <option key={index}>
+                        <option key={index} value={item.key}>
                           {langRedux === LANGUAGE.VI
                             ? item.valueVI
                             : item.valueEN}
@@ -123,12 +258,18 @@ class ProductManage extends Component {
               </div>
               <div className="form-group col-md-3">
                 <label htmlFor="inputState">Position</label>
-                <select id="inputState" className="form-control">
+                <select
+                  id="inputState"
+                  className="form-control"
+                  onChange={(event) => {
+                    this.handleSaveInfo(event, "position");
+                  }}
+                >
                   {position &&
                     position.length > 0 &&
                     position.map((item, index) => {
                       return (
-                        <option key={index}>
+                        <option key={index} value={item.key}>
                           {langRedux === LANGUAGE.VI
                             ? item.valueVI
                             : item.valueEN}
@@ -139,12 +280,18 @@ class ProductManage extends Component {
               </div>
               <div className="form-group col-md-3">
                 <label htmlFor="inputState">Role</label>
-                <select id="inputState" className="form-control">
+                <select
+                  id="inputState"
+                  className="form-control"
+                  onChange={(event) => {
+                    this.handleSaveInfo(event, "role");
+                  }}
+                >
                   {role &&
                     role.length > 0 &&
                     role.map((item, index) => {
                       return (
-                        <option key={index}>
+                        <option key={index} value={item.key}>
                           {langRedux === LANGUAGE.VI
                             ? item.valueVI
                             : item.valueEN}
@@ -188,7 +335,13 @@ class ProductManage extends Component {
                 </label>
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className="btn btn-primary "
+              onClick={() => {
+                this.handleSaveUser();
+              }}
+            >
               Sign in
             </button>
           </form>
@@ -213,6 +366,7 @@ const mapDispatchToProps = (dispatch) => {
     getGenderStart: () => dispatch(actions.fetchGenderStart()),
     getPositionStart: () => dispatch(actions.fetchPositionStart()),
     getRoleStart: () => dispatch(actions.fetchRoleStart()),
+    createNewUser: (data) => dispatch(actions.createUserStart(data)),
 
     // processLogout: () => dispatch(actions.processLogout()),
     // changeLanguageReduxAction: (lang) =>
