@@ -5,6 +5,7 @@ import { getAllCodeService } from "../../../services/userServices";
 import { LANGUAGE } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./ProductManage.scss";
+import FrmInputUser from "./FrmInputUser";
 class ProductManage extends Component {
   constructor(props) {
     super(props);
@@ -345,6 +346,7 @@ class ProductManage extends Component {
               Sign in
             </button>
           </form>
+          <FrmInputUser />
         </div>
       </div>
     );
