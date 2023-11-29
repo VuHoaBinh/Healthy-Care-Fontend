@@ -12,6 +12,7 @@ class FrmInputUser extends Component {
     this.state = {
       arrUsers: [],
       userEdit: {}, // get info
+      isOpenEdit: true,
     };
   }
   // get data in backend
@@ -42,26 +43,16 @@ class FrmInputUser extends Component {
     }
   };
 
+  // s
+
   handleOnClickEditUser = (userID) => {
+    this.props.isOpenEdit(this.state.isOpenEdit);
     this.setState({
       userEdit: userID,
     });
-    console.log("click edit :", userID);
-  };
+    this.props.editUser(this.state.userEdit);
 
-  handleOnClickEditUserInfo = async (userID) => {
-    console.log("click edit :", userID);
-    try {
-      let response = await editUserService(userID);
-      console.log("response:", response);
-      if (response && response.errCode !== 0) {
-        alert(response.message);
-      } else {
-        await this.getAllUser();
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    // console.log("click edit :", userID);
   };
 
   render() {

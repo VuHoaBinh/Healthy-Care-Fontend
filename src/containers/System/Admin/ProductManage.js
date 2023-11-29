@@ -6,10 +6,14 @@ import { LANGUAGE } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./ProductManage.scss";
 import FrmInputUser from "./FrmInputUser";
+import { editUserService } from "../../../services/userServices";
+
 class ProductManage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      editUser: {},
+      isOpenEdit: false,
       genderArray: [],
       positionArray: [],
       roleIDArray: [],
@@ -134,6 +138,21 @@ class ProductManage extends Component {
       }
     }
     return isFlag;
+  };
+
+  onDataFromChild = () => {
+    this.setState({ isOpenEdit: !this.state.isOpenEdit });
+  };
+  getDataToEdit = () => {
+    const newData = ;
+  
+    this.setState({ editUser: newData }, () => {
+      console.log(this.state.editUser);
+    });
+  };
+  handleEditUser = () => {
+    // this.onDataFromChild();
+    this.setState({ isOpenEdit: !this.state.isOpenEdit });
   };
 
   render() {
@@ -336,17 +355,32 @@ class ProductManage extends Component {
                 </label>
               </div>
             </div>
-            <button
-              type="submit"
-              className="btn btn-primary "
-              onClick={() => {
-                this.handleSaveUser();
-              }}
-            >
-              Sign in
-            </button>
+            {this.state.isOpenEdit ? (
+              <button
+                type="submit"
+                className="btn btn-primary "
+                onClick={() => {
+                  this.handleEditUser();
+                }}
+              >
+                Submit
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="btn btn-primary "
+                onClick={() => {
+                  this.handleSaveUser();
+                }}
+              >
+                Sign in
+              </button>
+            )}
           </form>
-          <FrmInputUser />
+          <FrmInputUser
+            isOpenEdit={this.onDataFromChild}
+            editUser={this.getDataToEdit}
+          />
         </div>
       </div>
     );
