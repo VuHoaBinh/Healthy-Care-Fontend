@@ -50,9 +50,8 @@ class FrmInputUser extends Component {
     this.setState({
       userEdit: userID,
     });
-    this.props.editUser(this.state.userEdit);
-
-    // console.log("click edit :", userID);
+    console.log("click edit :", userID);
+    console.log("click edit :", this.props.editUser(userID));
   };
 
   render() {

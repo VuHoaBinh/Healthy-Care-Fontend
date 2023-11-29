@@ -143,13 +143,14 @@ class ProductManage extends Component {
   onDataFromChild = () => {
     this.setState({ isOpenEdit: !this.state.isOpenEdit });
   };
+
   getDataToEdit = () => {
-    const newData = ;
-  
+    const newData = this.state.editUser;
     this.setState({ editUser: newData }, () => {
       console.log(this.state.editUser);
     });
   };
+
   handleEditUser = () => {
     // this.onDataFromChild();
     this.setState({ isOpenEdit: !this.state.isOpenEdit });
